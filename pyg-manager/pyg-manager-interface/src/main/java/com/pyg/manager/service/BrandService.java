@@ -43,4 +43,10 @@ public interface BrandService {
 	 * 返回值:PygResult
 	 */
 	public PageResult findBrandByPage(TbBrand brand, Integer page, Integer rows);
+	/**
+	 * 需求: 批量删除品牌数据
+	 * 参数: Long[] id
+	 * 返回值:PygResult
+	 */
+	public PygResult deleteIds(Long[] ids);
 }

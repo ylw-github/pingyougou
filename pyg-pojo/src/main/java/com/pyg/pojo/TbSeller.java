@@ -1,9 +1,15 @@
 package com.pyg.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbSeller {
-    private String sellerId;
+public class TbSeller implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8630836665506908940L;
+
+	private String sellerId;
 
     private String name;
 

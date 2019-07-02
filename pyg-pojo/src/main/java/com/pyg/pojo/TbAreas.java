@@ -1,7 +1,14 @@
 package com.pyg.pojo;
 
-public class TbAreas {
-    private Integer id;
+import java.io.Serializable;
+
+public class TbAreas implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -422445975156794720L;
+
+	private Integer id;
 
     private String areaid;
 

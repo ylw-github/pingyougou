@@ -1,7 +1,14 @@
 package com.pyg.pojo;
 
-public class TbContentCategory {
-    private Long id;
+import java.io.Serializable;
+
+public class TbContentCategory implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4070031258953316841L;
+
+	private Long id;
 
     private String name;
 

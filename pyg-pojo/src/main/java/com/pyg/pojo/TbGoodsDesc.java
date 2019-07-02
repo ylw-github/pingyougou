@@ -1,7 +1,14 @@
 package com.pyg.pojo;
 
-public class TbGoodsDesc {
-    private Long goodsId;
+import java.io.Serializable;
+
+public class TbGoodsDesc implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 392332816091507988L;
+
+	private Long goodsId;
 
     private String introduction;
 

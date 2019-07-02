@@ -98,4 +98,17 @@ public class BrandController {
 		return result;
 	}
 
+	
+	/**
+	 * 需求: 批量删除品牌数据
+	 * 请求: dele?ids=??
+	 * 参数: Long[] id
+	 * 返回值:PygResult
+	 */
+	@RequestMapping("/dele")
+	public PygResult dele(Long[] ids){
+		//调用远程service方法
+		PygResult result = brandService.deleteIds(ids);
+		return result;
+	}
 }

@@ -1,9 +1,15 @@
 package com.pyg.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class TbGoods {
-    private Long id;
+public class TbGoods implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8889031260076861422L;
+
+	private Long id;
 
     private String sellerId;
 

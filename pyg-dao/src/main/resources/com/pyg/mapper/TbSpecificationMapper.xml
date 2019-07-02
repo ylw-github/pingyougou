@@ -96,11 +96,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pyg.pojo.TbSpecification" >
+  <insert id="insert" parameterType="com.pyg.pojo.TbSpecification" useGeneratedKeys="true" keyProperty="id">
     insert into tb_specification (id, spec_name)
     values (#{id,jdbcType=BIGINT}, #{specName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.pyg.pojo.TbSpecification" >
+  <insert id="insertSelective" parameterType="com.pyg.pojo.TbSpecification"  useGeneratedKeys="true" keyProperty="id">
     insert into tb_specification
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

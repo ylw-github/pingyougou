@@ -3,7 +3,12 @@ package com.pyg.pojo;
 import java.io.Serializable;
 
 public class TbBrand implements Serializable{
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2497361942723874003L;
+
+	private Long id;
 
     private String name;
 

@@ -1,7 +1,14 @@
 package com.pyg.pojo;
 
-public class TbProvinces {
-    private Integer id;
+import java.io.Serializable;
+
+public class TbProvinces implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2573409435857314853L;
+
+	private Integer id;
 
     private String provinceid;
 

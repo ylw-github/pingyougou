@@ -130,4 +130,27 @@ public class BrandServiceImpl implements BrandService{
 		return new PageResult(pageInfo.getTotal(), list);
 	}
 
+	/**
+	 * 需求: 批量删除品牌数据
+	 * 参数: Long[] id
+	 * 返回值:PygResult
+	 */
+	public PygResult deleteIds(Long[] ids) {
+		try {
+			// 循环需要删除id
+			for (Long id : ids) {
+				//单独删除一个对象
+				brandMapper.deleteByPrimaryKey(id);
+				
+			}
+			//删除成功
+			return new PygResult(true, "删除成功");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//删除失败
+			return new PygResult(false, "删除失败");
+		}
+	}
+
 }

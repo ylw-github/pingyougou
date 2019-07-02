@@ -12,102 +12,18 @@
 <link rel="stylesheet"
 	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
 <script src="../plugins/angularjs/angular.min.js"></script>
 <script src="../plugins/angularjs/pagination.js"></script>
-<script type="text/javascript">
-	//定义模块
-	var app = angular.module("pyg", [ 'pagination' ]);
-	//定义控制器
-	app.controller(
-			"brandController",
-			function($scope, $http) {
-				//查询所有函数
-				$scope.findAll = function() {
-					//使用内置服务发送请求
-					$http.get("../brand/findAll").success(function(data) {
-						$scope.list = data;
-					})
 
-				};
+<script type="text/javascript" src="../js/base_pagination.js"></script>
+<script type="text/javascript" src="../js/service/brandService.js"></script>
+<script type="text/javascript" src="../js/controller/baseController.js"></script>
+<script type="text/javascript" src="../js/controller/brandController.js"></script>
 
-				//重新加载列表 数据
-				$scope.reloadList = function() {
-					//切换页码
-					$scope.search($scope.paginationConf.currentPage,
-							$scope.paginationConf.itemsPerPage);
-				}
-				//分页控件配置
-				$scope.paginationConf = {
-					currentPage : 1,
-					totalItems : 10,
-					itemsPerPage : 10,
-					perPageOptions : [ 10, 20, 30, 40, 50 ],
-					onChange : function() {
-						$scope.reloadList();//重新加载
-					}
-				};
-				//分页
-				$scope.findPage = function(page, rows) {
-					$http.get('../brand/findPage?page=' + page + '&rows='+ rows).success(function(data) {
-						$scope.list = data.rows;
-						$scope.paginationConf.totalItems = data.total;//更新总记录数
-					});
-				};
-				
-				//添加函数
-				$scope.add = function(){
-					
-					//定义方法名
-					var methodName = "add";
-					//判断如果id存在,是修改
-					if($scope.entity.id!=null){
-						methodName="update";
-					}					
-					//内置服务发送请求
-					$http.post("../brand/"+methodName,$scope.entity).success(function(data){
-						//判断
-						if(data.success){
-							//刷新
-							$scope.reloadList();
-						}else{
-							alert(data.message);
-						}
-					})
-					
-				};
-				
-				//根据id查询品牌
-				$scope.findOne = function(id){
-					//发送请求
-					$http.get("../brand/findOne?id="+id).success(
-						function(data){
-							$scope.entity = data;
-						}		
-					)
-				}
-				
-				//初始化对象
-				$scope.searchEntity = {};
-				
-				//条件查询方法
-				$scope.search = function(page,rows){
-					
-					//发送条件查询请求
-					$http.post("../brand/search?page="+page+"&rows="+rows,$scope.searchEntity).success(
-						function(data){
-							$scope.list = data.rows;
-							$scope.paginationConf.totalItems = data.total;//更新总记录数
-						}		
-					)
-					
-				}
-				
 
-			})
-</script>
 </head>
 <body ng-app="pyg" ng-controller="brandController"
 	class="hold-transition skin-red sidebar-mini">
@@ -129,7 +45,8 @@
 							data-toggle="modal" ng-click="entity={}" data-target="#editModal">
 							<i class="fa fa-file-o"></i> 新建
 						</button>
-						<button type="button" class="btn btn-default" title="删除">
+						<button type="button" class="btn btn-default" title="删除"
+							ng-click="dele()">
 							<i class="fa fa-trash-o"></i> 删除
 						</button>
 						<button type="button" class="btn btn-default" title="刷新"
@@ -140,8 +57,8 @@
 				</div>
 			</div>
 			<div class="box-tools pull-right">
-				品牌名:<input type="text" ng-model="searchEntity.name" >
-				首字母:<input type="text" ng-model="searchEntity.firstChar" >
+				品牌名:<input type="text" ng-model="searchEntity.name"> 首字母:<input
+					type="text" ng-model="searchEntity.firstChar">
 				<button ng-click="reloadList()">查询</button>
 				<div class="has-feedback"></div>
 			</div>
@@ -162,13 +79,15 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="entity in list">
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox"
+							ng-click="updateSelection($event,entity.id)"></td>
 						<td>{{entity.id}}</td>
 						<td>{{entity.name}}</td>
 						<td>{{entity.firstChar}}</td>
 						<td class="text-center">
 							<button type="button" class="btn bg-olive btn-xs"
-								data-toggle="modal" ng-click="findOne(entity.id)" data-target="#editModal">修改</button>
+								data-toggle="modal" ng-click="findOne(entity.id)"
+								data-target="#editModal">修改</button>
 						</td>
 					</tr>
 				</tbody>
@@ -199,12 +118,13 @@
 					<table class="table table-bordered table-striped" width="800px">
 						<tr>
 							<td>品牌名称</td>
-							<td><input class="form-control" ng-model="entity.name" placeholder="品牌名称">
-							</td>
+							<td><input class="form-control" ng-model="entity.name"
+								placeholder="品牌名称"></td>
 						</tr>
 						<tr>
 							<td>首字母</td>
-							<td><input class="form-control" ng-model="entity.firstChar" placeholder="首字母"></td>
+							<td><input class="form-control" ng-model="entity.firstChar"
+								placeholder="首字母"></td>
 						</tr>
 					</table>
 				</div>

@@ -1,9 +1,15 @@
 package com.pyg.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbFreightTemplate {
-    private Long id;
+public class TbFreightTemplate implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -357985461939964902L;
+
+	private Long id;
 
     private String sellerId;
 
