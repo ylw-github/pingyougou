@@ -8,6 +8,7 @@
   <artifactId>pyg-shop-web</artifactId>
   <packaging>war</packaging>
   <!-- 商家表现层: 1,servlet 2,服务接口 3,spring 4,引入服务:dubbo,zookeeper -->
+
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
