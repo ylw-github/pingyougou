@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:bean="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd
+http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 在权限认证之前访问资源需要放行 -->
+	<http pattern="/shoplogin.html" security="none"></http>
+	<http pattern="/error.html" security="none"></http>
+	<http pattern="/register.html" security="none"></http>
+	<http pattern="/css/**" security="none"></http>
+	<http pattern="/js/**" security="none"></http>
+	<http pattern="/img/**" security="none"></http>
+	<http pattern="/plugins/**" security="none"></http>
+	<!-- 商家入驻url -->
+	<http pattern="/seller/add" security="none"></http>
+
+	<!-- http安全控制规则 -->
+	<http>
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<!-- 表单认证 -->
+		<form-login login-page="/shoplogin.html"
+			default-target-url="/admin/index.html" always-use-default-target="true"
+			authentication-failure-url="/error.html" login-processing-url="/login" />
+		<!-- 屏蔽跨域 -->
+		<csrf disabled="true" />
+		<!-- 配置ifram访问 -->
+		<headers>
+			<frame-options policy="SAMEORIGIN" />
+		</headers>
+		<!-- 推出登录配置 -->
+		<!-- logout: spring security 安全框架自动生成推出地址:/logout -->
+		<logout logout-success-url="/shoplogin.html" />
+	</http>
+
+
+	<!-- 引用dubbo 服务 -->
+	<dubbo:application name="pinyougou-shop-web" />
+	<dubbo:registry address="zookeeper://192.168.232.128:2181" />
+	<!-- xml引入sellerService对象 -->
+	<dubbo:reference id="sellerService"
+		interface="com.pyg.manager.service.SellerService"></dubbo:reference>
+
+	<!-- 配置认证管理器 -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsServiceImpl">
+			<password-encoder ref="passwordEncoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+	<!-- 自定义认证类 -->
+	<bean:bean id="userDetailsServiceImpl"
+		class="com.pyg.shop.service.impl.UserDetailsServiceImpl">
+		<bean:property name="sellerService" ref="sellerService"></bean:property>
+	</bean:bean>
+	<!-- 定义spring security安全加密算法对象 -->
+	<bean:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean:bean>
+</bean:beans>

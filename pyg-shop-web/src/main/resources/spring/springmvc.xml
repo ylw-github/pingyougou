@@ -26,9 +26,6 @@
 	<!-- 放行静态资源 -->
 	<mvc:default-servlet-handler/>
 
-	<!-- 引用dubbo 服务 -->
-	<dubbo:application name="pinyougou-shop-web" />
-	<dubbo:registry address="zookeeper://192.168.232.128:2181"/>
-	<dubbo:annotation package="com.pyg.shop.controller" />  	
+	<dubbo:annotation package="com.pyg.shop.controller" />
 
 </beans>

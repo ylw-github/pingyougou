@@ -27,13 +27,26 @@
   	<!-- 指定加载的配置文件 ，通过参数contextConfigLocation加载-->
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
-  		<param-value>classpath:spring/springmvc.xml</param-value>
+  		<param-value>classpath:spring/*.xml</param-value>
   	</init-param>
+  	<load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
   	<servlet-name>springmvc</servlet-name>
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <!-- spring security 安全控制过滤器 -->
+	<!-- 使用过滤器拦截请求,对这些请求进行安全验证 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
 	
 </web-app>
