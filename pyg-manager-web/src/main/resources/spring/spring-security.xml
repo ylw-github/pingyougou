@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bean:beans xmlns="http://www.springframework.org/schema/security"
-            xmlns:bean="http://www.springframework.org/schema/beans"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://www.springframework.org/schema/beans
+xmlns:bean="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!-- 在权限认证之前访问资源需要放行 -->
-    <http pattern="/login.html" security="none"></http>
-    <http pattern="/error.html" security="none"></http>
-    <http pattern="/css/**" security="none"></http>
-    <http pattern="/js/**" security="none"></http>
-    <http pattern="/img/**" security="none"></http>
-    <http pattern="/plugins/**" security="none"></http>
+<!-- 在权限认证之前访问资源需要放行 -->
+<http pattern="/login.html" security="none"></http>
+<http pattern="/error.html" security="none"></http>
+<http pattern="/css/**" security="none"></http>
+<http pattern="/js/**" security="none"></http>
+<http pattern="/img/**" security="none"></http>
+<http pattern="/plugins/**" security="none"></http>
 
-    <!-- http安全控制规则 -->
-    <http>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
-        <!-- 表单认证 -->
-        <form-login login-page="/login.html" default-target-url="/admin/index.html"
-                    always-use-default-target="true" authentication-failure-url="/error.html"
-                    login-processing-url="/login"/>
-        <!-- 屏蔽跨域 -->
-        <csrf disabled="true"/>
-        <!-- 配置ifram访问 -->
-        <headers>
-            <frame-options policy="SAMEORIGIN"/>
-        </headers>
-        <!-- 推出登录配置 -->
-        <!-- logout: spring security 安全框架自动生成推出地址:/logout -->
-        <logout logout-success-url="/login.html"/>
-    </http>
-    <!-- 配置认证管理器 -->
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="admin" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
+<!-- http安全控制规则 -->
+<http>
+	<intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+	<!-- 表单认证 -->
+	<form-login login-page="/login.html" default-target-url="/admin/index.html" 
+		always-use-default-target="true" authentication-failure-url="/error.html"
+		login-processing-url="/login"/>
+	<!-- 屏蔽跨域 -->
+	<csrf disabled="true"/>
+	<!-- 配置ifram访问 -->
+	<headers>
+		<frame-options policy="SAMEORIGIN"/>
+	</headers>
+	<!-- 推出登录配置 -->
+	<!-- logout: spring security 安全框架自动生成推出地址:/logout -->
+	<logout logout-success-url="/login.html"/>
+</http>
+<!-- 配置认证管理器 -->
+<authentication-manager>
+	<authentication-provider>
+		<user-service>
+			<user name="admin" password="admin" authorities="ROLE_USER"/>
+		</user-service>
+	</authentication-provider>	
+</authentication-manager>
 
 </bean:beans>

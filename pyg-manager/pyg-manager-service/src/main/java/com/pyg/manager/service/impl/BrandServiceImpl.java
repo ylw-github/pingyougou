@@ -1,6 +1,7 @@
 package com.pyg.manager.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -151,6 +152,18 @@ public class BrandServiceImpl implements BrandService{
 			//删除失败
 			return new PygResult(false, "删除失败");
 		}
+	}
+
+	/**
+	 * 需求:查询所有品牌
+	 * 参数:无
+	 * 返回值:List<Map>
+	 */
+	public List<Map> findBrandWithTemplate() {
+		// 查询所有品牌
+		List<Map> list = brandMapper.findBrandWithTemplate();
+		
+		return list;
 	}
 
 }

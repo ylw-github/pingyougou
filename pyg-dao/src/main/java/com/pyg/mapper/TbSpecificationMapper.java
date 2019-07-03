@@ -2,7 +2,10 @@ package com.pyg.mapper;
 
 import com.pyg.pojo.TbSpecification;
 import com.pyg.pojo.TbSpecificationExample;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbSpecificationMapper {
@@ -27,4 +30,6 @@ public interface TbSpecificationMapper {
     int updateByPrimaryKeySelective(TbSpecification record);
 
     int updateByPrimaryKey(TbSpecification record);
+    //查询规格属性
+    List<Map> findSpecOptionList();
 }

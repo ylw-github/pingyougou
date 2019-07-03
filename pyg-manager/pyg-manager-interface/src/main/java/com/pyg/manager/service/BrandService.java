@@ -1,6 +1,7 @@
 package com.pyg.manager.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pyg.pojo.TbBrand;
 import com.pyg.utils.PageResult;
@@ -49,4 +50,10 @@ public interface BrandService {
 	 * 返回值:PygResult
 	 */
 	public PygResult deleteIds(Long[] ids);
+	/**
+	 * 需求:查询所有品牌
+	 * 参数:无
+	 * 返回值:List<Map>
+	 */
+	public List<Map> findBrandWithTemplate();
 }

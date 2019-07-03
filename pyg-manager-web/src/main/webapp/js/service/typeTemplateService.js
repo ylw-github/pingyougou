@@ -28,5 +28,14 @@ app.service('typeTemplateService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../typeTemplate/search?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}  
+	//查询品牌
+	this.findBrandList = function(){
+		return $http.get("../typeTemplate/findBrandList");
+	}
+	// 查询规格属性下拉列表
+	this.findSpecOptionList = function(){
+		return $http.get("../typeTemplate/findSpecOptionList");
+	};
+	
 });
