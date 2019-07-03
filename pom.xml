@@ -12,7 +12,6 @@
     2,锁定编译环境
     dependencyManagement:仅仅是管理坐标,不提供依赖
     -->
-
     <modules>
         <module>pyg-common</module>
         <module>pyg-dao</module>

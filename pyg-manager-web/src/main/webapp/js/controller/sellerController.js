@@ -75,6 +75,19 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 				$scope.paginationConf.totalItems=response.total;//更新总记录数
 			}			
 		);
-	}
+	};
+	
+	//审核商家入驻状态
+	$scope.updateStatus = function(sellerId,status){
+		//调用service服务方法
+		sellerService.updateStatus(sellerId,status).success(
+			function(data){
+				if(data.success){
+					//更新成功
+					$scope.reloadList();
+				}
+			}
+		);
+	};
     
 });	

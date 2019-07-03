@@ -111,4 +111,17 @@ public class SellerController {
 		return sellerService.findPage(seller, page, rows);		
 	}
 	
+	/**
+	 * 需求:审核商家信息,改变商品状态
+	 * 请求:../seller/updateStatus?sellerId='+sellerId+'&status=
+	 * 参数:String sellerId,String status
+	 * 返回值:pygResult
+	 */
+	@RequestMapping("/updateStatus")
+	public PygResult updateStatus(String sellerId,String status){
+		//调用远程服务方法
+		PygResult result = sellerService.updateStatus(sellerId, status);
+		return result;
+	}
+	
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>angularJS入门---数组数据</title>
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript">
+	//使用angularJS定义模块
+	var app = angular.module('pyg', []);
+	
+	//把控制器放入模块空间
+	app.controller('helloController',function($scope){
+		
+		//绑定数据
+		$scope.list = [23,67,89,100,99];
+		
+	});
+</script>
+</head>
+<body ng-app="pyg" ng-controller="helloController">
+	<table>
+	<tr ng-repeat="x in list">
+		<td>{{x}}</td>
+	</tr>
+	</table>
+	
+</body>
+</html>

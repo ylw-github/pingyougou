@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>angularJS入门---数组数据</title>
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript">
+	//使用angularJS定义模块
+	var app = angular.module('pyg', []);
+	
+	//把控制器放入模块空间
+	app.controller('helloController',function($scope,$http){		
+		//绑定数据
+		//定义函数,查询所有
+		$scope.findAll = function(){
+			//发送get请求
+			//$http.post 发送post请求
+			$http.get('data1.json').success(
+				function(data){
+					$scope.list = data;
+				}		
+			);
+		
+		};
+		
+		
+	});
+</script>
+</head>
+<body ng-app="pyg" ng-controller="helloController" ng-init="findAll()">
+	<table>
+	<tr ng-repeat="entity in list">
+		<td>{{entity.name}}</td>
+		<td>{{entity.shuxue}}</td>
+		<td>{{entity.yuwen}}</td>
+	</tr>
+	</table>
+	
+</body>
+</html>

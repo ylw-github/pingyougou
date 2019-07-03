@@ -111,4 +111,17 @@ public class ItemCatController {
 		return itemCatService.findPage(itemCat, page, rows);		
 	}
 	
+	/**
+	 * 需求:根据父id查询子节点
+	 * 请求:/itemCat/findItemCatByParentId?parentId=
+	 * 参数:Long parentId
+	 * 返回值:List<tbItemCat>
+	 */
+	@RequestMapping("/findItemCatByParentId")
+	public List<TbItemCat> findItemCatByParentId(Long parentId){
+		//调用远程service服务对象
+		List<TbItemCat> list = itemCatService.findItemCatByParentId(parentId);
+		return list;
+	}
+	
 }

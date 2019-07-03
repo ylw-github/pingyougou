@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>angularJS入门---mvc设计模式</title>
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript">
+//定义控制器方法
+function helloController($scope){ //controler
+	//绑定值
+	$scope.greeting = {
+		text:"hello,augular!"		
+	};
+}
+
+</script>
+</head>
+<body ng-app>
+<div ng-controller="helloController">
+	<h1>{{greeting.text}}</h1>
+</div>
+<div ng-controller="hController">
+	<h1>{{greeting.text}}</h1>
+</div>
+</body>
+</html>

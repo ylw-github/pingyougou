@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>angularJS入门---模块化设计</title>
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript">
+	//使用angularJS定义模块
+	var app = angular.module('pyg', []);
+	
+	//把控制器放入模块空间
+	app.controller('helloController',function($scope){
+		//定义controller函数
+		$scope.add = function(){			
+			$scope.z = parseInt($scope.x)+parseInt($scope.y);			
+		}
+		
+		//定义函数
+		$scope.greeting = {
+				text:"anguarjs,hello"
+		}
+		
+		$scope.find = function(){
+				return "表达式中调用函数";
+		}
+		
+	});
+</script>
+</head>
+<body ng-app="pyg" ng-controller="helloController">
+	X:<input type="text" ng-model="x">
+	Y:<input type="text" ng-model="y">
+	<button value="计算xy和" ng-click="add();">计算xy和</button>
+	<h1>
+		计算xy和等于:{{z}} {{greeting.text}} {{find()}}
+	</h1>
+</body>
+</html>
