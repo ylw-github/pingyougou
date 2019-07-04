@@ -1,8 +1,10 @@
 package com.pyg.manager.service;
 import java.util.List;
-import com.pyg.pojo.TbGoods;
 
+import com.pyg.pojo.TbGoods;
 import com.pyg.utils.PageResult;
+import com.pyg.utils.PygResult;
+import com.pyg.vo.Goods;
 /**
  * 服务层接口
  * @author Administrator
@@ -27,7 +29,7 @@ public interface GoodsService {
 	/**
 	 * 增加
 	*/
-	public void add(TbGoods goods);
+	public PygResult add(Goods goods);
 	
 	
 	/**

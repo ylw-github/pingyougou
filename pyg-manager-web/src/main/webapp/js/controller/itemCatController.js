@@ -34,12 +34,17 @@ app.controller('itemCatController', function($scope, $controller,
 		if ($scope.entity.id != null) {// 如果有ID
 			serviceObject = itemCatService.update($scope.entity); // 修改
 		} else {
+			
+			//给保存对象赋值
+			$scope.entity.parentId = $scope.parentId;
+			//保存
 			serviceObject = itemCatService.add($scope.entity);// 增加
 		}
 		serviceObject.success(function(response) {
 			if (response.success) {
 				// 重新查询
-				$scope.reloadList();// 重新加载
+				//调用查询下级方法
+				$scope.findItemCatByParentId($scope.parentId);
 			} else {
 				alert(response.message);
 			}
@@ -68,8 +73,16 @@ app.controller('itemCatController', function($scope, $controller,
 				});
 	};
 
+	//定义父节点id变量,记录父节点值
+	$scope.parentId = 0;
+	
 	// 根据父id查询子节点
 	$scope.findItemCatByParentId = function(parentId) {
+		debugger
+		
+		//查询下级节点给父节点赋值,记录每一次节点变化父节点
+		$scope.parentId = parentId;
+		
 		// 调用商品分类service服务
 		itemCatService.findItemCatByParentId(parentId).success(function(data) {
 			$scope.itemCatList = data;

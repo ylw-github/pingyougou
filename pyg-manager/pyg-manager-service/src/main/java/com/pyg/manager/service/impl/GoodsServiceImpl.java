@@ -1,16 +1,21 @@
 package com.pyg.manager.service.impl;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.pyg.manager.service.GoodsService;
+import com.pyg.mapper.TbGoodsDescMapper;
 import com.pyg.mapper.TbGoodsMapper;
 import com.pyg.pojo.TbGoods;
+import com.pyg.pojo.TbGoodsDesc;
 import com.pyg.pojo.TbGoodsExample;
 import com.pyg.pojo.TbGoodsExample.Criteria;
-import com.pyg.manager.service.GoodsService;
-
 import com.pyg.utils.PageResult;
+import com.pyg.utils.PygResult;
+import com.pyg.vo.Goods;
 
 /**
  * 服务实现层
@@ -41,12 +46,44 @@ public class GoodsServiceImpl implements GoodsService {
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
+	
+	//注入货品描述mapper接口代理对象
+	@Autowired
+	private TbGoodsDescMapper goodsDescMapper;
+	
 	/**
 	 * 增加
 	 */
 	@Override
-	public void add(TbGoods goods) {
-		goodsMapper.insert(goods);		
+	public PygResult add(Goods goods) {
+		
+		try {
+			//保存货品表数据
+			//获取货品对象
+			TbGoods tbGoods = goods.getGoods();
+			//保存货品,返回主键
+			goodsMapper.insertSelective(tbGoods);		
+			//再保存货品描述表
+			//获取货品描述对象
+			TbGoodsDesc goodsDesc = goods.getGoodsDesc();
+			//设置外键
+			goodsDesc.setGoodsId(tbGoods.getId());
+			//保存
+			goodsDescMapper.insertSelective(goodsDesc);
+			//在保存商品表
+			
+			//保存成功
+			return new PygResult(true, "保存成功");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new PygResult(false,"保存失败");
+		}
+		
+		
+	
+		
 	}
 
 	
