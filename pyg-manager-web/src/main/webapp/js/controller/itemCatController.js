@@ -78,7 +78,6 @@ app.controller('itemCatController', function($scope, $controller,
 	
 	// 根据父id查询子节点
 	$scope.findItemCatByParentId = function(parentId) {
-		debugger
 		
 		//查询下级节点给父节点赋值,记录每一次节点变化父节点
 		$scope.parentId = parentId;

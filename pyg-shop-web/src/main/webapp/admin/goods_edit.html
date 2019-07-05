@@ -26,6 +26,8 @@
 <script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
 <script src="../plugins/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
+<script type="text/javascript" src="../js/service/uploadService.js"></script>
 <script type="text/javascript" src="../js/service/goodsService.js"></script>
 <script type="text/javascript" src="../js/service/itemCatService.js"></script>
 <script type="text/javascript" src="../js/controller/baseController.js"></script>
@@ -72,7 +74,7 @@
 										<td><select ng-model="entity.goods.category1Id" ng-options="cat.id as cat.name for cat in itemCat1List" class="form-control"></select></td>
 										<td><select class="form-control select-sm" ng-model="entity.goods.category2Id" ng-options="cat.id as cat.name for cat in itemCat2List"></select></td>
 										<td><select class="form-control select-sm" ng-model="entity.goods.category3Id" ng-options="cat.id as cat.name for cat in itemCat3List"></select></td>
-										<td>模板ID:{{entity.typeId}}</td>
+										<td>模板ID:{{entity.goods.typeTemplateId}}</td>
 									</tr>
 								</table>
 
@@ -87,7 +89,7 @@
 
 							<div class="col-md-2 title">品牌</div>
 							<div class="col-md-10 data">
-								<select class="form-control"></select>
+								<select class="form-control" ng-model="entity.goods.brandId" ng-options="brand.id as brand.text for brand in typeTemplate.brandIds"></select>
 							</div>
 
 							<div class="col-md-2 title">副标题</div>
@@ -134,12 +136,10 @@
 							<!-- 颜色图片 -->
 							<div class="btn-group">
 								<button type="button" class="btn btn-default" title="新建"
-									data-target="#uploadModal" data-toggle="modal">
+									data-target="#uploadModal" data-toggle="modal" ng-click="imageEntity={}">
 									<i class="fa fa-file-o"></i> 新建
 								</button>
-								<button type="button" class="btn btn-default" title="删除">
-									<i class="fa fa-trash-o"></i> 删除
-								</button>
+								
 							</div>
 
 							<table
@@ -153,11 +153,14 @@
 										<th class="sorting">图片</th>
 								</thead>
 								<tbody>
-									<tr>
+									<tr ng-repeat="pic in entity.goodsDesc.itemImages">
 										<td><input type="checkbox"></td>
-										<td></td>
-										<td><img alt="" src="" width="100px" height="100px">
+										<td>{{pic.color}}</td>
+										<td><img alt="" src="{{pic.url}}" width="100px" height="100px">
 										</td>
+										<td><button type="button" class="btn btn-default" title="删除" ng-click="removeImageEntity($index);">
+									<i class="fa fa-trash-o"></i> 删除
+										</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -326,7 +329,7 @@
 						<tr>
 							<td>颜色</td>
 							<td><input class="form-control" placeholder="颜色"
-								ng-model="image_entity.color"></td>
+								ng-model="imageEntity.color"></td>
 						</tr>
 						<tr>
 							<td>商品图片</td>
@@ -336,7 +339,7 @@
 										<td><input type="file" id="file" />
 											<button class="btn btn-primary" type="button"
 												ng-click="uploadFile()">上传</button></td>
-										<td><img src="{{image_entity.url}}" width="200px"
+										<td><img src="{{imageEntity.url}}" width="200px"
 											height="200px"></td>
 									</tr>
 								</table>
