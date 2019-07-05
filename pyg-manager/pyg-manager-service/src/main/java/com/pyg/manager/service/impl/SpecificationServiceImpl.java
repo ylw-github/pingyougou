@@ -95,7 +95,7 @@ public class SpecificationServiceImpl implements SpecificationService {
 		// 创建example对象
 		TbSpecificationOptionExample example = new TbSpecificationOptionExample();
 		// 创建criteria对象
-		TbSpecificationOptionExample.Criteria createCriteria = example
+		com.pyg.pojo.TbSpecificationOptionExample.Criteria createCriteria = example
 				.createCriteria();
 		// 设置查询参数
 		createCriteria.andSpecIdEqualTo(tbSpecification.getId());
@@ -134,7 +134,7 @@ public class SpecificationServiceImpl implements SpecificationService {
 		// 创建example对象
 		TbSpecificationOptionExample example = new TbSpecificationOptionExample();
 		// 创建criteria对象
-		TbSpecificationOptionExample.Criteria createCriteria = example
+		com.pyg.pojo.TbSpecificationOptionExample.Criteria createCriteria = example
 				.createCriteria();
 		// 设置查询参数
 		createCriteria.andSpecIdEqualTo(id);
@@ -159,7 +159,7 @@ public class SpecificationServiceImpl implements SpecificationService {
 			// 创建example对象
 			TbSpecificationOptionExample example = new TbSpecificationOptionExample();
 			// 创建criteria对象
-			TbSpecificationOptionExample.Criteria createCriteria = example
+			com.pyg.pojo.TbSpecificationOptionExample.Criteria createCriteria = example
 					.createCriteria();
 			// 设置查询参数
 			createCriteria.andSpecIdEqualTo(id);

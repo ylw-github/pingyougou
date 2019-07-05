@@ -18,7 +18,7 @@ public interface BrandService {
 	 * 参数:Integer page,Integer rows
 	 * 返回值:分页包装类对象PageResult
 	 */
-	public PageResult findPage(Integer page, Integer rows);
+	public PageResult findPage(Integer page,Integer rows);
 	/**
 	 * 需求:添加品牌数据
 	 * 参数:TbBrand brand
@@ -43,7 +43,7 @@ public interface BrandService {
 	 * 参数:TbBrand brand
 	 * 返回值:PygResult
 	 */
-	public PageResult findBrandByPage(TbBrand brand, Integer page, Integer rows);
+	public PageResult findBrandByPage(TbBrand brand,Integer page,Integer rows);
 	/**
 	 * 需求: 批量删除品牌数据
 	 * 参数: Long[] id

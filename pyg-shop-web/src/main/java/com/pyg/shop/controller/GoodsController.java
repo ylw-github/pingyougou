@@ -21,7 +21,7 @@ import com.pyg.vo.Goods;
 @RequestMapping("/goods")
 public class GoodsController {
 
-	@Reference
+	@Reference(timeout=10000000)
 	private GoodsService goodsService;
 	
 	/**
@@ -67,7 +67,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public PygResult update(@RequestBody TbGoods goods){
+	public PygResult update(@RequestBody Goods goods){
 		try {
 			goodsService.update(goods);
 			return new PygResult(true, "修改成功");
@@ -83,8 +83,8 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
-		return goodsService.findOne(id);		
+	public Goods findOne(Long id){
+		return goodsService.findOne(id);	
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public PygResult delete(Long [] ids){
+	public PygResult delete(String [] ids){
 		try {
 			goodsService.delete(ids);
 			return new PygResult(true, "删除成功"); 
@@ -112,6 +112,11 @@ public class GoodsController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+		//根据商家id查询
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		//把商家id设置参数对象goods
+		goods.setSellerId(sellerId);
+		
 		return goodsService.findPage(goods, page, rows);		
 	}
 	

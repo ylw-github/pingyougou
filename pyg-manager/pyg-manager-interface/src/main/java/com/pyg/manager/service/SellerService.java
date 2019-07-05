@@ -22,7 +22,7 @@ public interface SellerService {
 	 * 返回分页列表
 	 * @return
 	 */
-	public PageResult findPage(int pageNum, int pageSize);
+	public PageResult findPage(int pageNum,int pageSize);
 	
 	
 	/**
@@ -49,7 +49,7 @@ public interface SellerService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(String[] ids);
+	public void delete(String [] ids);
 
 	/**
 	 * 分页
@@ -57,12 +57,12 @@ public interface SellerService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbSeller seller, int pageNum, int pageSize);
+	public PageResult findPage(TbSeller seller, int pageNum,int pageSize);
 	/**
 	 * 需求:审核商家信息,改变商品状态
 	 * 参数:String sellerId,String status
 	 * 返回值:pygResult
 	 */
-	public PygResult updateStatus(String sellerId, String status);
+	public PygResult updateStatus(String sellerId,String status);
 	
 }

@@ -28,5 +28,9 @@ app.service('goodsService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../goods/search?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}   
+	//审核
+	this.updateGoodsStatus = function(selectIds,status){
+		return $http.get('../goods/updateGoodsStatus?ids='+selectIds+'&status='+status);
+	}
 });

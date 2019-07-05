@@ -59,7 +59,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public PygResult update(@RequestBody TbGoods goods){
+	public PygResult update(@RequestBody Goods goods){
 		try {
 			goodsService.update(goods);
 			return new PygResult(true, "修改成功");
@@ -75,7 +75,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -85,7 +85,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public PygResult delete(Long [] ids){
+	public PygResult delete(String[] ids){
 		try {
 			goodsService.delete(ids);
 			return new PygResult(true, "删除成功"); 
@@ -105,6 +105,18 @@ public class GoodsController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
 		return goodsService.findPage(goods, page, rows);		
+	}
+	/**
+	 * 需求:更新商品状态(运营商审核商家商品)
+	 * 请求:updateGoodsStatus
+	 * 参数:Long[] ids,String status
+	 * 返回值:pygResult
+	 */
+	@RequestMapping("/updateGoodsStatus")
+	public PygResult updateGoodsStatus(String[] ids,String status){
+		//调用服务
+		PygResult result = goodsService.updataGoodsStatus(ids, status);
+		return result;
 	}
 	
 }

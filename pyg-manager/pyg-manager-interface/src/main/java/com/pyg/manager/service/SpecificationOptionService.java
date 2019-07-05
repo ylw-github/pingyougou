@@ -21,7 +21,7 @@ public interface SpecificationOptionService {
 	 * 返回分页列表
 	 * @return
 	 */
-	public PageResult findPage(int pageNum, int pageSize);
+	public PageResult findPage(int pageNum,int pageSize);
 	
 	
 	/**
@@ -48,7 +48,7 @@ public interface SpecificationOptionService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Long[] ids);
+	public void delete(Long [] ids);
 
 	/**
 	 * 分页
@@ -56,6 +56,6 @@ public interface SpecificationOptionService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbSpecificationOption specificationOption, int pageNum, int pageSize);
+	public PageResult findPage(TbSpecificationOption specificationOption, int pageNum,int pageSize);
 	
 }

@@ -19,9 +19,14 @@ import com.pyg.utils.PygResult;
 @RequestMapping("/itemCat")
 public class ItemCatController {
 
-	@Reference
+	@Reference(timeout=10000000)
 	private ItemCatService itemCatService;
 	
+	
+	@RequestMapping("/findAll")
+	public List<TbItemCat> findAll(){
+		return itemCatService.findAll();
+	}
 	
 	/**
 	 * 获取实体

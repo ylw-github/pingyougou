@@ -38,4 +38,9 @@ app.service('typeTemplateService',function($http){
 		return $http.get("../typeTemplate/findSpecOptionList");
 	};
 	
+	// 查询模版中存储关键规格属性对应规格选项
+	this.findSpecOptionListByTypeId = function(typeId){
+		return $http.get("../typeTemplate/findSpecOptionListByTypeId?typeId="+typeId);
+	};
+	
 });

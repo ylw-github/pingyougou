@@ -150,4 +150,20 @@ public class TypeTemplateController {
 		
 	}
 	
+	/**
+	 * 需求: 查询模版中存储关键规格属性对应规格选项
+	 * 请求: findSpecOptionListByTypeId
+	 * 参数:模版id
+	 * 返回值: List<Map>
+	 */
+	@RequestMapping("/findSpecOptionListByTypeId")
+	public List<Map> findSpecOptionListByTypeId(Long typeId){
+		//调用模版中查询方法,查询模版对应规格选项值
+		List<Map> specList = typeTemplateService.findSpecOptionListByTypeId(typeId);
+		return specList;
+		
+	}
+	
+	
+	
 }

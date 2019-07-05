@@ -2,6 +2,7 @@ package com.pyg.vo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import com.pyg.pojo.TbGoods;
 import com.pyg.pojo.TbGoodsDesc;
@@ -15,7 +16,7 @@ public class Goods implements Serializable{
 	//货品描述
 	private TbGoodsDesc goodsDesc;
 	
-	
+	//[{spec:{"网络":"电信2G"},price:999999,stockCount:0,status:'0',idDefault:'0'},{spec:{"网络":"联通2G"},price:999999,stockCount:0,status:'0',idDefault:'0'}]
 	//商品列表
 	private List<TbItem> itemList;
 
@@ -48,6 +49,10 @@ public class Goods implements Serializable{
 	public void setItemList(List<TbItem> itemList) {
 		this.itemList = itemList;
 	}
+
+
+	
+	
 	
 	
 
