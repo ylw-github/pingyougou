@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:solr="http://www.springframework.org/schema/data/solr"
+xsi:schemaLocation="http://www.springframework.org/schema/data/solr
+http://www.springframework.org/schema/data/solr/spring-solr-1.0.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<solr:solr-server id="solrServer" url="http://192.168.66.66:8080/solr/item"/>
+	<!-- 配置solr服务器对象 -->
+	<bean class="org.springframework.data.solr.core.SolrTemplate">
+		<constructor-arg ref="solrServer"></constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.pinyougou</groupId>
+    <artifactId>pyg-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.pinyougou</groupId>
+  <artifactId>pyg-search</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>pyg-search-interface</module>
+  	<module>pyg-search-service</module>
+  </modules>
+  <!-- 品优购广告聚合父工程:
+  	   1,common
+  	   2,tomcat插件
+   -->
+   <dependencies>
+		<dependency>
+			<groupId>com.pinyougou</groupId>
+			<artifactId>pyg-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 配置Tomcat插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!-- 服务启动端口:从9000开始 -->
+					<port>9002</port>
+					<!-- /把项目发布tomcat服务器ROOT目录下.-->
+					<path>/</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
