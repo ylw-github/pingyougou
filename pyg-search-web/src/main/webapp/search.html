@@ -18,7 +18,7 @@
 </head>
 
 <body ng-app="pyg" ng-controller="searchController"
-	ng-init="searchList();">
+	ng-init="loadkeywords();">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 	<div id="nav-bottom">
@@ -269,7 +269,7 @@
 				</div>
 				<div class="goods-list">
 					<ul class="yui3-g">
-						<li class="yui3-u-1-5" ng-repeat="entity in itemList.rows">
+						<li class="yui3-u-1-5" ng-repeat="entity in searchResult.rows">
 							<div class="list-wrap">
 								<div class="p-img">
 									<a href="item.html" target="_blank"><img
@@ -280,7 +280,7 @@
 									</strong>
 								</div>
 								<div class="attr">
-									<em>{{entity.title}}</em>
+									<em ng-bind-html="entity.title | trustHtml"></em>
 								</div>
 								<div class="cu">
 									<em><span>促</span>满一件可参加超值换购</em>

@@ -8,8 +8,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
+import org.springframework.data.solr.core.query.HighlightOptions;
 import org.springframework.data.solr.core.query.Query;
+import org.springframework.data.solr.core.query.SimpleHighlightQuery;
 import org.springframework.data.solr.core.query.SimpleQuery;
+import org.springframework.data.solr.core.query.result.HighlightEntry.Highlight;
+import org.springframework.data.solr.core.query.result.HighlightPage;
 import org.springframework.data.solr.core.query.result.ScoredPage;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -87,16 +91,74 @@ public class MySpringDataSOlr {
 
 		// 创建solrQuery对象,封装条件
 		Query query = new SimpleQuery("*:*");
-		//创建封装条件对象
+		// 创建封装条件对象
 		Criteria criteria = new Criteria("item_keywords").is("番茄");
 		criteria.contains("16");
-		//把条件添加查询对象
+		// 把条件添加查询对象
 		query.addCriteria(criteria);
-		
-		ScoredPage<TbItem> page = solrTemplate.queryForPage(query, TbItem.class);
-		//获取记录
+
+		ScoredPage<TbItem> page = solrTemplate
+				.queryForPage(query, TbItem.class);
+		// 获取记录
 		List<TbItem> content = page.getContent();
 		System.out.println(content);
+	}
+
+	// 测试
+	// 删除索引库
+	@Test
+	public void deleteIndex() {
+		// 删除所有
+		Query query = new SimpleQuery("*:*");
+		 solrTemplate.delete(query);
+		// 根据id删除索引
+		//solrTemplate.deleteById(100000000000L + "");
+		solrTemplate.commit();
+
+	}
+
+	// 测试
+	// 高亮查询
+	@Test
+	public void findSolrIndexWithHighlight() {
+		//创建高亮查询对象
+		SimpleHighlightQuery query = new SimpleHighlightQuery();
+		//条件查询
+		Criteria criteria = new Criteria("item_title").is("番茄");
+		//AND条件
+		criteria.contains("16");
+		
+		//把条件添加到查询对象中
+		query.addCriteria(criteria);
+		
+		//创建高亮对象,添加高亮操作
+		HighlightOptions highlightOptions = new HighlightOptions();
+		highlightOptions.addField("item_title");
+		highlightOptions.setSimplePrefix("<font color='red'>");
+		highlightOptions.setSimplePostfix("</font>");
+		
+		//设置高亮查询
+		query.setHighlightOptions(highlightOptions);
+		
+		//执行查询
+		HighlightPage<TbItem> highlightPage = solrTemplate.queryForHighlightPage(query, TbItem.class);
+		
+		//获取查询总记录数
+		long totalElements = highlightPage.getTotalElements();
+		System.out.println("查询总记录数:"+totalElements);
+		//获取总记录
+		List<TbItem> list = highlightPage.getContent();
+		
+		//循环集合对象
+		for (TbItem tbItem : list) {
+			
+			//获取高亮
+			List<Highlight> highlights = highlightPage.getHighlights(tbItem);
+			Highlight highlight = highlights.get(0);
+			List<String> snipplets = highlight.getSnipplets();
+			System.out.println("高亮字段:"+snipplets);
+		}
+
 	}
 
 }

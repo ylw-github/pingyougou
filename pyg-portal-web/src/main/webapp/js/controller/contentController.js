@@ -17,7 +17,14 @@ app.controller('contentController' ,function($scope,contentService){
 				$scope.adList[categoryId]=response;
 			}			
 		);
-	}    
+	};
+	
+	//从门户系统跳转到搜索系统,实现搜索
+	$scope.search = function(){
+		//向搜索系统发送请求
+		location.href = "http://localhost:8083/search.html#?keywords="+$scope.keywords;
+		
+	};
 	
 	
 });	
