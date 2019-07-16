@@ -20,7 +20,7 @@ import com.pyg.vo.Goods;
 @RequestMapping("/goods")
 public class GoodsController {
 
-	@Reference
+	@Reference(timeout=10000000)
 	private GoodsService goodsService;
 	
 	/**

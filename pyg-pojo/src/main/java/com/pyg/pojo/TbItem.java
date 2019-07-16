@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-import javax.xml.ws.FaultAction;
-
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.solr.core.mapping.Dynamic;
 
@@ -21,6 +19,7 @@ public class TbItem implements Serializable{
     private String title;
 	
     private String sellPoint;
+    
     @Field("item_price")
     private BigDecimal price;
 
@@ -37,7 +36,8 @@ public class TbItem implements Serializable{
     private String status;
 
     private Date createTime;
-
+    
+    @Field("item_updatetime")
     private Date updateTime;
 
     private String itemSn;

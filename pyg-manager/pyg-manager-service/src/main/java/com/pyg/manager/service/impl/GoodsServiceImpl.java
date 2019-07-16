@@ -1,10 +1,19 @@
 package com.pyg.manager.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+
+import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
@@ -296,18 +305,29 @@ public class GoodsServiceImpl implements GoodsService {
 		return goods;
 	}
 
+	// 注入消息发送模版
+	@Autowired
+	private JmsTemplate jmsTemplate;
+
 	/**
 	 * 批量删除
 	 */
 	@Override
 	public void delete(String[] ids) {
 		for (String id : ids) {
-			//根据id查询商品对象
-			TbGoods tbGoods = goodsMapper.selectByPrimaryKey(Long.parseLong(id));
+			// 根据id查询商品对象
+			TbGoods tbGoods = goodsMapper
+					.selectByPrimaryKey(Long.parseLong(id));
 			tbGoods.setIsDelete(null);
-			//更新
+			// 更新
 			goodsMapper.updateByPrimaryKey(tbGoods);
+
 		}
+		
+		// 发送消息
+		jmsTemplate.convertAndSend(ids);
+		
+		
 	}
 
 	@Override
@@ -345,7 +365,7 @@ public class GoodsServiceImpl implements GoodsService {
 				criteria.andIsEnableSpecLike("%" + goods.getIsEnableSpec()
 						+ "%");
 			}
-			//查询不为空
+			// 查询不为空
 			criteria.andIsDeleteIsNotNull();
 		}
 
@@ -359,22 +379,24 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 
 	 * @param ids
 	 * @param status
-	 * @return
+	 * @return 当前商品上架,发送消息,同步索引库.
 	 */
 	public PygResult updataGoodsStatus(String[] ids, String status) {
 		try {
 			// 循环数组ids
 			for (String id : ids) {
 				// 根据id把商品对象查询处理
-				TbGoods tbGoods = goodsMapper.selectByPrimaryKey(Long.parseLong(id));
+				TbGoods tbGoods = goodsMapper.selectByPrimaryKey(Long
+						.parseLong(id));
 				// 修改状态
 				tbGoods.setAuditStatus(status);
 
 				// 修改
 				goodsMapper.updateByPrimaryKeySelective(tbGoods);
-
+				
 			}
-
+			//传递消息 spu id
+			jmsTemplate.convertAndSend(ids);
 			// 修改成功
 			return new PygResult(true, "修改成功");
 

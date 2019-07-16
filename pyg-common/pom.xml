@@ -50,5 +50,9 @@
 			<groupId>org.csource.fastdfs</groupId>
 			<artifactId>fastdfs</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
 	</dependencies>
 </project>

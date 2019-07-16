@@ -259,11 +259,12 @@
 				<div class="sui-navbar">
 					<div class="navbar-inner filter">
 						<ul class="sui-nav">
-							<li class="active"><a href="#">综合</a></li>
+							<li class="active"><a href="#" ng-click="sortSearch('','')">综合</a></li>
 							<li><a href="#">销量</a></li>
-							<li><a href="#">新品</a></li>
+							<li><a href="#" ng-click="sortSearch('updatetime','DESC')">新品</a></li>
 							<li><a href="#">评价</a></li>
-							<li><a href="#">价格</a></li>
+							<li><a href="#" ng-if="searchMap.sort=='ASC' " ng-click="sortSearch('price','DESC')">价格↑</a></li>
+							<li><a href="#" ng-if="searchMap.sort=='DESC' " ng-click="sortSearch('price','ASC')">价格↓</a></li>
 						</ul>
 					</div>
 				</div>
@@ -301,14 +302,10 @@
 				<div class="fr page">
 					<div class="sui-pagination pagination-large">
 						<ul>
-							<li class="prev disabled"><a href="#">«上一页</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
+							<li class="prev disabled"><a href="#" ng-click="queryForPage(searchMap.pageNo-1);">«上一页</a></li>
+							<li ng-repeat="p in pageLabel" class="{{searchMap.pageNo==p?'active':''}}"><a href="#" ng-click="queryForPage(p);">{{p}}</a></li>
 							<li class="dotted"><span>...</span></li>
-							<li class="next"><a href="#">下一页»</a></li>
+							<li class="next"><a href="#" ng-click="queryForPage(searchMap.pageNo+1);">下一页»</a></li>
 						</ul>
 						<div>
 							<span>共10页&nbsp;</span><span> 到第 <input type="text"

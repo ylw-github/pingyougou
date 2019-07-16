@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://code.alibabatech.com/schema/dubbo 
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 把activeMQ消息服务器交给spring管理 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<constructor-arg name="brokerURL" value="tcp://192.168.66.66:61616"></constructor-arg>
+		<property name="trustAllPackages" value="true"></property>
+		<property name="alwaysSyncSend" value="true"></property>
+		<property name="dispatchAsync" value="true"></property>
+	</bean>
+
+	<bean id="solrTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="solrTopic"></constructor-arg>
+	</bean>
+
+	<bean id="bizRedeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+		<!-- 重发次数 延时、延时系数、延时指数开关、目标（重发等待时间1s, 2s, 4s, 8s） -->
+		<property name="maximumRedeliveries" value="3" />
+		<property name="redeliveryDelay" value="1000" />
+		<property name="backOffMultiplier" value="2" />
+		<property name="useExponentialBackOff" value="true" />
+		<property name="destination" ref="solrTopic" />
+	</bean>
+
+	<!--这里设置各个消息队列的重发机制 -->
+	<bean id="redeliveryPolicyMap"
+		class="org.apache.activemq.broker.region.policy.RedeliveryPolicyMap">
+		<property name="redeliveryPolicyEntries">
+			<list>
+				<ref bean="bizRedeliveryPolicy" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- ActiveMQ为我们提供了一个PooledConnectionFactory，通过往里面注入一个ActiveMQConnectionFactory 
+		可以用来将Connection、Session和MessageProducer池化，这样可以大大的减少我们的资源消耗。 要依赖于 activemq-pool包 -->
+	<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="targetConnectionFactory" />
+		<property name="maxConnections" value="3000" />
+	</bean>
+
+	<!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.SingleConnectionFactory">
+		<!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
+		<property name="targetConnectionFactory" ref="pooledConnectionFactory" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+
+	<bean class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="pubSubDomain" value="true"></property>
+		<property name="defaultDestination" ref="solrTopic"></property>
+	</bean>
+
+</beans>
