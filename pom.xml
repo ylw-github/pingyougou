@@ -14,6 +14,7 @@
 		<module>pyg-common</module>
 		<module>pyg-content</module>
 		<module>pyg-dao</module>
+		<module>pyg-html-utils</module>
 		<module>pyg-manager</module>
 		<module>pyg-manager-web</module>
 		<module>pyg-pojo</module>
