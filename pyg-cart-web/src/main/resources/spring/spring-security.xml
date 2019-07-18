@@ -30,7 +30,7 @@
 		class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
 		<!-- 单点登录服务器登录URL -->
 		<beans:property name="loginUrl"
-			value="http://192.168.66.66:9100/cas/login" />
+			value="http://192.168.25.128:8080/cas/login" />
 		<beans:property name="serviceProperties" ref="serviceProperties" />
 	</beans:bean>
 	<beans:bean id="serviceProperties"
@@ -66,7 +66,7 @@
 			<beans:bean
 				class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
 				<beans:constructor-arg index="0"
-					value="http://192.168.66.66:9100/cas" />
+					value="http://192.168.25.128:8080/cas" />
 			</beans:bean>
 		</beans:property>
 		<beans:property name="key"
@@ -85,7 +85,7 @@
 	<beans:bean id="requestSingleLogoutFilter"
 		class="org.springframework.security.web.authentication.logout.LogoutFilter">
 		<beans:constructor-arg
-			value="http://192.168.66.66:9100/cas/logout?service=http://192.168.66.66:9100/cas/login" />
+			value="http://192.168.25.128:8080/cas/logout?service=http://192.168.25.128:8080/cas/login" />
 		<beans:constructor-arg>
 			<beans:bean
 				class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />

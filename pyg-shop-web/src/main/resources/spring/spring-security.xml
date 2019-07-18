@@ -40,7 +40,7 @@ http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubb
 
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-shop-web" />
-	<dubbo:registry address="zookeeper://192.168.66.66:2181" />
+	<dubbo:registry address="zookeeper://192.168.25.128:2181" />
 	<!-- xml引入sellerService对象 -->
 	<dubbo:reference id="sellerService"
 		interface="com.pyg.manager.service.SellerService"></dubbo:reference>

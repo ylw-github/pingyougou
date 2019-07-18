@@ -12,7 +12,7 @@
     <!-- 指定服务名称 -->
 	<dubbo:application name="pyg-cart-service"/>  
 	<!-- 指定服务注册中心地址 -->
-    <dubbo:registry address="zookeeper://192.168.66.66:2181"/>
+    <dubbo:registry address="zookeeper://192.168.25.128:2181"/>
     <!-- 注解方式发布服务 -->
     <dubbo:annotation package="com.pyg.cart.service.impl" />  
    

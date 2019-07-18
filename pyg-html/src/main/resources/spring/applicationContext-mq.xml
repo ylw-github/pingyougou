@@ -15,7 +15,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- 把activeMQ消息服务器交给spring管理 -->
 	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<constructor-arg name="brokerURL" value="tcp://192.168.66.66:61616"></constructor-arg>
+		<constructor-arg name="brokerURL" value="tcp://192.168.25.128:61616"></constructor-arg>
 		<property name="trustAllPackages" value="true"></property>
 		<property name="alwaysSyncSend" value="true"></property>
 		<property name="dispatchAsync" value="true"></property>

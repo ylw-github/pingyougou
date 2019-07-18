@@ -29,7 +29,7 @@
 
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-search-web" />
-	<dubbo:registry address="zookeeper://192.168.66.66:2181" />
+	<dubbo:registry address="zookeeper://192.168.25.128:2181" />
 	<dubbo:annotation package="com.pyg.search.controller" />
 
 </beans>
