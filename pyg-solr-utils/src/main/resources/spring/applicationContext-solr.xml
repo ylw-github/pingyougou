@@ -13,7 +13,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.pyg.solr"></context:component-scan>
 
-	<solr:solr-server id="solrServer" url="http://192.168.66.66:8080/solr/item"/>
+	<solr:solr-server id="solrServer" url="http://192.168.25.128:8080/solr/item"/>
 	<!-- 配置solr服务器对象 -->
 	<bean class="org.springframework.data.solr.core.SolrTemplate">
 		<constructor-arg ref="solrServer"></constructor-arg>

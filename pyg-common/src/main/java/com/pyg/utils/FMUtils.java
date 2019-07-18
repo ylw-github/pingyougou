@@ -49,7 +49,7 @@ public class FMUtils {
 		
 		//同时把生成html页面上传到静态页面服务器
 		//连接linux服务
-		ChannelSftp channelSftp = SftpUtil.connect("192.168.66.66", 22, "root", "itcast");
+		ChannelSftp channelSftp = SftpUtil.connect("192.168.25.128", 22, "root", "123456");
 		//上传
 		InputStream in = new FileInputStream(file);
 		//
