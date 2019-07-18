@@ -10,20 +10,6 @@
   	2,锁定编译环境
   	dependencyManagement:仅仅是管理坐标,不提供依赖
   	-->
-	<modules>
-		<module>pyg-common</module>
-		<module>pyg-content</module>
-		<module>pyg-dao</module>
-		<module>pyg-html-utils</module>
-		<module>pyg-manager</module>
-		<module>pyg-manager-web</module>
-		<module>pyg-pojo</module>
-		<module>pyg-portal-web</module>
-		<module>pyg-search</module>
-		<module>pyg-search-web</module>
-		<module>pyg-shop-web</module>
-		<module>pyg-solr-utils</module>
-	</modules>
   
 	<!-- 集中定义依赖版本号 -->
 	<properties>

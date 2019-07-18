@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.jcraft.jsch.ChannelSftp;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

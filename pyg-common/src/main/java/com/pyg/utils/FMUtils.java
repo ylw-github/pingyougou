@@ -2,10 +2,14 @@ package com.pyg.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
+
+import com.jcraft.jsch.ChannelSftp;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -34,11 +38,22 @@ public class FMUtils {
 		Template template = config.getTemplate(ftlName);
 		// 指定文件输出的路径
 		String path = "F:\\template\\out\\";
+		
+		File file = new File(path + "/" + fileName);
+		
 		// 定义输出流，注意的必须指定编码
 		Writer out = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(new File(path + "/" + fileName)), "UTF-8"));
+				new FileOutputStream(file)));
 		// 生成模板
 		template.process(map, out);
+		
+		//同时把生成html页面上传到静态页面服务器
+		//连接linux服务
+		ChannelSftp channelSftp = SftpUtil.connect("192.168.66.66", 22, "root", "itcast");
+		//上传
+		InputStream in = new FileInputStream(file);
+		//
+		SftpUtil.upload("/data/images", in, fileName, channelSftp);
 		//关闭
 		out.close();
 	}

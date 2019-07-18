@@ -16,8 +16,8 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.18.166:3306/pinyougoudb" userId="root"
-			password="root">
+			connectionURL="jdbc:mysql://192.168.66.66:3306/pinyougoudb" userId="root"
+			password="admin">
 		</jdbcConnection>
 		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
 			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
