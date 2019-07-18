@@ -40,7 +40,7 @@ http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubb
 
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-shop-web" />
-	<dubbo:registry address="zookeeper://192.168.25.128:2181" />
+	<dubbo:registry address="zookeeper://192.168.66.66:2181" />
 	<!-- xml引入sellerService对象 -->
 	<dubbo:reference id="sellerService"
 		interface="com.pyg.manager.service.SellerService"></dubbo:reference>
@@ -52,7 +52,8 @@ http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubb
 		</authentication-provider>
 	</authentication-manager>
 	<!-- 自定义认证类 -->
-	<bean:bean id="userDetailsServiceImpl" class="com.pyg.shop.service.impl.UserDetailsServiceImpl">
+	<bean:bean id="userDetailsServiceImpl"
+		class="com.pyg.shop.service.impl.UserDetailsServiceImpl">
 		<bean:property name="sellerService" ref="sellerService"></bean:property>
 	</bean:bean>
 	<!-- 定义spring security安全加密算法对象 -->

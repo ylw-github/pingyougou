@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>演示二维码生成</title>
+
+</head>
+<body>
+<img id="qr"></img>
+</body>
+<script type="text/javascript" src="js/qrious.js"></script>
+	<script type="text/javascript">
+	var qr = new QRious({
+		element:document.getElementById('qr'),
+		size:250, 
+		level:'H', 
+		value:'http://www.itcast.cn'
+	});
+	</script>
+</html>

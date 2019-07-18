@@ -9,6 +9,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.pyg.utils.SmsUtils;
 
 @Component
@@ -30,12 +31,14 @@ public class SmsCode {
 
 		try {
 			// 把字符串成对象
-			Map maps = JSON.parseObject(message, Map.class);
+			Map mapMessage = JSON.parseObject(message, Map.class);
 
 			// 获取手机号
-			String mobile = (String) maps.get("mobile");
+			String mobile = (String) mapMessage.get("mobile");
 			// 获取签名
-			String signName = (String) maps.get("signName");
+			String signName = (String) mapMessage.get("signName");
+			// 获取验证码
+			String code = (String) mapMessage.get("number");
 
 			// 获取accessKeyId
 			String accessKeyId = env.getProperty("accessKeyId");
@@ -43,9 +46,17 @@ public class SmsCode {
 			String accessKeySecret = env.getProperty("accessKeySecret");
 
 			// 调用工具类方法
-			SmsUtils.sendSms(mobile, signName, templateCode,
-					"{\"number\":\"222222\"}", accessKeyId, accessKeySecret);
-			
+			SendSmsResponse response = SmsUtils.sendSms(mobile, signName,
+					templateCode, code, accessKeyId, accessKeySecret);
+
+			System.out.println("短信接口返回的数据----------------");
+			System.out.println("Code=" + response.getCode());
+			System.out.println("Message=" + response.getMessage());
+			System.out.println("RequestId=" + response.getRequestId());
+			System.out.println("BizId=" + response.getBizId());
+
+			Thread.sleep(3000L);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
